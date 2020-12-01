@@ -1,0 +1,2 @@
+class ToReadList < ReadingList
+end
