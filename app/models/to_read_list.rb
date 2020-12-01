@@ -1,2 +1,0 @@
-class ToReadList < ReadingList
-end

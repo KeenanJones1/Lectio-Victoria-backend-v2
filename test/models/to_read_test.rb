@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ToReadListTest < ActiveSupport::TestCase
+class ToReadTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

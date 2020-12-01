@@ -1,3 +1,0 @@
-class CurrentlyReadingList < ReadingList
- 
-end
