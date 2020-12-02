@@ -9,13 +9,12 @@ walden = Book.create(author: "Walden Michaels", pages: 215, genre: "self reflect
 
 keenan_list = ReadingList.create(name: 'Summer Reading', type: 'ToRead', user: keenan)
 
+keenan_list_2 = ReadingList.create(name: 'Grames', type: 'CurrentlyReading', user: keenan)
+
 
 
 keenan_walden = ReadingListBook.create(reading_list: keenan_list, book: walden)
 
-# Error have to do alot of digging to get to the books. 
-
-# User.first.reading_lists.first.reading_list_books.first.book
 
 # Add functionality to create Currently_reading List 
 
