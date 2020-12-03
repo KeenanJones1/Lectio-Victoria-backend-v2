@@ -1,0 +1,4 @@
+class CurrentBook < ReadingListBook
+
+
+end
