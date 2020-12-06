@@ -15,9 +15,9 @@ keenan_list = ReadingList.create(name: 'Summer Reading', type: 'ToRead', user: k
 
 keenan_list_2 = ReadingList.create(name: 'Grames', type: 'CurrentlyReading', user: keenan)
 
-keenan_walden = ReadingListBook.create(reading_list: keenan_list, book: walden)
+keenan_walden = ReadingListBook.create(reading_list: keenan_list, book: walden, type: 'CurrentBook' )
 
 
 # Add functionality to create Currently reading Book. 
-
+# 
 

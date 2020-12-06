@@ -6,14 +6,16 @@ class User < ApplicationRecord
  validates_confirmation_of :password
  attr_accessor :password_confirmation
  has_many :reading_lists, dependent: :destroy
- after_create :create_currently_reading
+ after_create :create_default_lists
  has_many :reading_list_books, through: :reading_lists
  
  
 
 
- def create_currently_reading
+ def create_default_lists
   ReadingList.create(name: 'Currently Reading', type: 'CurrentlyReading', user: self)
+  ReadingList.create(name: 'To Read List', type: 'ToRead', user: self)
+  ReadingList.create(name: 'Books Read', type: 'ReadBook', user: self )
  end
 
 end
