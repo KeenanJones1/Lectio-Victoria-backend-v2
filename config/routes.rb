@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :books, only: [index, create, show]
+  resoures :auth, only: [create, show]
+  resources :user, only: [create]
+  resources :reading_list
+  get 'book/index'
+  get 'user/create'
+  get 'auth/create'
+  get 'auth/show'
   get 'reading_list/index'
   get 'reading_list/create'
   get 'reading_list/new'

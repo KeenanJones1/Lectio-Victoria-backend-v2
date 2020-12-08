@@ -1,5 +1,9 @@
 class ReadingListController < ApplicationController
   def index
+    readinglists = ReadingList.all
+    render json: readinglists.as_json(
+      only: [:id, :name, :type]
+    )
   end
 
   def create
