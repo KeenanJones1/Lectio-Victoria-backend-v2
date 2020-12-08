@@ -15,7 +15,7 @@ class User < ApplicationRecord
  def create_default_lists
   ReadingList.create(name: 'Currently Reading', type: 'CurrentlyReading', user: self)
   ReadingList.create(name: 'To Read List', type: 'ToRead', user: self)
-  ReadingList.create(name: 'Books Read', type: 'ReadBook', user: self )
+  ReadingList.create(name: 'Books Read', type: 'DoneReading', user: self )
  end
 
 end
