@@ -36,7 +36,7 @@ keenan_list = ReadingList.create(name: 'Summer Reading', type: 'ToRead', user: k
 
 
 (1..5).each do 
- user_book = ReadingListBook.create(reading_list: keenan_list, book_id: rand(1..10), type: 'CurrentBook' )
+ user_book = ReadingListBook.create(reading_list: keenan_list, book: walden, type: 'CurrentBook' )
 end
 
 

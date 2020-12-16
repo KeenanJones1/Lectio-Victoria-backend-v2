@@ -1,4 +1,4 @@
-  require "json_web_token.rb"
+require "json_web_token.rb"
 
 class UserController < ApplicationController
   def show

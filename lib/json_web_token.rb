@@ -1,5 +1,5 @@
 class JsonWebToken
- JWT_SECRET = ENV["JWT_SECRET"]
+ JWT_SECRET = ENV["jwt_secret"]
 
  def self.encode(payload)
   JWT.encode(payload, JWT_SECRET)
@@ -11,5 +11,11 @@ def self.decode(token)
 rescue JWT::DecodeError, JWT::VerificationError => e
  raise ExceptionHandler::DecodeError, e.message
 end
+
+# def self.decode(token)
+#  return HashWithIndifferentAccess.new(JWT.decode(token, Rails.application.secrets.secret_key_base)[0])
+# rescue
+#  nil
+# end
 
 end

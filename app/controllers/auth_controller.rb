@@ -1,3 +1,5 @@
+require 'authorization.rb'
+
 class AuthController < ApplicationController
   def create
     auth_object = Authentication.new(login_params)
@@ -13,6 +15,7 @@ class AuthController < ApplicationController
 
   def show
     authorization_object = Authorization.new(request)
+    # the following line does not work.
     current_user = authorization_object.current_user
     user = User.find(current_user)
     if current_user 

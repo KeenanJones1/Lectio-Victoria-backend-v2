@@ -45,3 +45,5 @@ gem 'email_validator'
 gem 'faker'
 
 gem 'jwt'
+
+gem 'figaro'
