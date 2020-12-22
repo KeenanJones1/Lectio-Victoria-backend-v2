@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :books, only: [:index, :create, :show]
+  resources :book, only: [:index, :create, :show]
   resources :user, only: [:create, :show]
   resources :reading_list
   post 'login', to: 'auth#create', as: '/login'

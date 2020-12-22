@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_042402) do
+ActiveRecord::Schema.define(version: 2020_12_22_130257) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -37,12 +37,20 @@ ActiveRecord::Schema.define(version: 2020_12_10_042402) do
     t.string "title"
     t.string "author"
     t.integer "published_year"
-    t.string "genre"
     t.text "description"
     t.integer "pages"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "book_cover"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.decimal "weight"
+    t.integer "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_categories_on_book_id"
   end
 
   create_table "reading_list_books", force: :cascade do |t|
@@ -74,6 +82,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_042402) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "books"
   add_foreign_key "reading_list_books", "books"
   add_foreign_key "reading_list_books", "reading_lists"
   add_foreign_key "reading_lists", "users"

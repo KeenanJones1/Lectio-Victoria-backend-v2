@@ -8,16 +8,4 @@ class UserSerializer
  end
 
 
- # @user.as_json(
- #  :only => [:username, :email],
- #  :include => {:reading_lists => {:only => [:id, :name, :type], :include =>{:reading_list_books => {:include => {:book => {:only => [:title, :author, :published_year, :genre, :description, :pages]}}}}}}
-
-
- # @user.to_json(
- #  :only => [:username],
- # :include => {:cities => {:only => [:id, :name, :key, :country]}},
- # :except => [:password_digest, :updated_at, :created_at])
-
- 
-
 end

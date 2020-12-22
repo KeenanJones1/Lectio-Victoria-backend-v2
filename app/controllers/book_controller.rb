@@ -5,7 +5,9 @@ class BookController < ApplicationController
   end
 
   def create
+    book = Book.new(params['book'])
     byebug
+
   end
 
   def show
