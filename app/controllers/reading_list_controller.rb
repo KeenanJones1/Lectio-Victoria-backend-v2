@@ -15,7 +15,8 @@ class ReadingListController < ApplicationController
   end
 
   def show
-    byebug
+    readingList = ReadingList.find(params['id'])
+    render json: readingList.as_json( include: :reading_list_books)
   end
 
   def edit
