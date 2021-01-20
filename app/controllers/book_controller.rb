@@ -13,7 +13,14 @@ class BookController < ApplicationController
   @pages = params['book']['volumeInfo']['pageCount']
   @book_cover = params['book']['volumeInfo']['imageLinks']['thumbnail']
   book = Book.create(title: @title, published_year: @published_year,description: @description, pages: @pages, book_cover: @book_cover, author: @author)
-  render json: book.to_json
+
+  readingList = ReadingList.find(params["list_id"])
+
+  ReadingListBook.create(reading_list: readingList, book: book)
+  
+  user = User.find(readingList.user_id)
+
+  render json: UserSerializer.new(user).to_serialized_json
   end
 
   def show
