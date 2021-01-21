@@ -16,7 +16,7 @@ class ReadingListController < ApplicationController
 
   def show
     readingList = ReadingList.find(params['id'])
-    render json: readingList.as_json( :include => {:reading_list_books => {:include => {:book => {:only => [:title, :author, :published_year, :genre, :description, :pages]}}}})
+    render json: readingList.as_json( :include => {:reading_list_books => {:include => {:book => {:only => [:title, :author, :published_year, :genre, :description, :pages, :id, :book_cover]}}}})
   end
 
   # @user.to_json(:only => [:username, :email], :include => {:reading_lists => {:only => [:id, :name, :type], :include => {:reading_list_books => {:include => {:book => {:only => [:title, :author, :published_year, :genre, :description, :pages]}}}}}})
@@ -31,6 +31,7 @@ class ReadingListController < ApplicationController
 
   def destroy
     byebug
+
   end
 
   private 
