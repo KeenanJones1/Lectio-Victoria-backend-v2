@@ -6,16 +6,27 @@ class User < ApplicationRecord
  validates_confirmation_of :password
  attr_accessor :password_confirmation
  has_many :reading_lists, dependent: :destroy
- after_create :create_default_lists
+ after_create :create_defaults
  has_many :reading_list_books, through: :reading_lists
  has_one_attached :avatar
+ has_many :stats
  
 
 
- def create_default_lists
+ def create_defaults
   ReadingList.create(name: 'Currently Reading', type: 'CurrentlyReading', user: self)
   ReadingList.create(name: 'To Read List', type: 'ToRead', user: self)
   ReadingList.create(name: 'Books Read', type: 'DoneReading', user: self )
+
+  Stat.create(name:"Nature", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"Sound", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"Reason", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"Life", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"People", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"Body", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"Word", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"Self", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"Picture", level:1, value: 0, goal: 3, user: self)
  end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_130257) do
+ActiveRecord::Schema.define(version: 2021_01_23_153537) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -72,6 +72,17 @@ ActiveRecord::Schema.define(version: 2020_12_22_130257) do
     t.index ["user_id"], name: "index_reading_lists_on_user_id"
   end
 
+  create_table "stats", force: :cascade do |t|
+    t.string "name"
+    t.integer "level"
+    t.integer "value"
+    t.integer "goal"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_stats_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -86,4 +97,5 @@ ActiveRecord::Schema.define(version: 2020_12_22_130257) do
   add_foreign_key "reading_list_books", "books"
   add_foreign_key "reading_list_books", "reading_lists"
   add_foreign_key "reading_lists", "users"
+  add_foreign_key "stats", "users"
 end
