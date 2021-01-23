@@ -18,7 +18,6 @@ class BookController < ApplicationController
 
   ReadingListBook.create(reading_list: readingList, book: book)
   user = User.find(readingList.user_id)
-  
   render json: UserSerializer.new(user).to_serialized_json
   end
 

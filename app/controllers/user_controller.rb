@@ -4,10 +4,7 @@ class UserController < ApplicationController
   def show
     user = User.find(params["id"])
     if user
-      render json: user.as_json(
-       only: [:username, :email],
-       include: {reading_lists: {only: [:id, :name, :type], include: {reading_list_books: {include: {book: {only: [:title, :author, :published_year, :genre, :description, :pages]}}}}}}
-      )
+      render json: UserSerializer.new(user).to_serialized_json
     end
   end
 
