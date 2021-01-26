@@ -14,9 +14,25 @@ class BookController < ApplicationController
   @book_cover = params['book']['imageLinks']['thumbnail']
   book = Book.create(title: @title, published_year: @published_year,description: @description, pages: @pages, book_cover: @book_cover, author: @author)
 
-  readingList = ReadingList.find(params["list_id"])
 
-  ReadingListBook.create(reading_list: readingList, book: book)
+
+  
+  
+  readingList = ReadingList.find(params["list_id"])
+  
+  rlb = ReadingListBook.create(reading_list: readingList, book: book)
+
+  if params['book']['categories']
+    genre = rlb.find_genre(params['book']['categories'][0])
+    rlb.genre = genre
+  else
+    genre = rlb.find_genre(book.description)
+    rlb.genre = genre
+    rlb.save
+  end
+
+  
+  book.process()
   user = User.find(readingList.user_id)
   render json: UserSerializer.new(user).to_serialized_json
   end

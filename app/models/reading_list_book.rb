@@ -10,5 +10,27 @@ class ReadingListBook < ApplicationRecord
     self.errors.add(:base, 'Only three books allowed in this list')
    end
   end
+
+  def find_genre(desc)
+    lower_desc = desc.downcase
+    if lower_desc.include? "playbook"
+     "Body"
+    elsif lower_desc.include? "politic"
+     "Reason"
+    elsif lower_desc.include? "biograph"
+     "People"
+    elsif lower_desc.include? "phy"
+     "Reason"
+    else
+     byebug
+     "Default"
+    end
+   end
+
+   def complete
+    # this method creates a book from the external api
+    @base = self.pages * 0.25
+    byebug
+   end
   
 end

@@ -18,15 +18,15 @@ class User < ApplicationRecord
   ReadingList.create(name: 'To Read List', type: 'ToRead', user: self)
   ReadingList.create(name: 'Books Read', type: 'DoneReading', user: self )
 
-  Stat.create(name:"Nature", level:1, value: 0, goal: 3, user: self)
-  Stat.create(name:"Sound", level:1, value: 0, goal: 3, user: self)
-  Stat.create(name:"Reason", level:1, value: 0, goal: 3, user: self)
-  Stat.create(name:"Life", level:1, value: 0, goal: 3, user: self)
-  Stat.create(name:"People", level:1, value: 0, goal: 3, user: self)
-  Stat.create(name:"Body", level:1, value: 0, goal: 3, user: self)
-  Stat.create(name:"Word", level:1, value: 0, goal: 3, user: self)
-  Stat.create(name:"Self", level:1, value: 0, goal: 3, user: self)
-  Stat.create(name:"Picture", level:1, value: 0, goal: 3, user: self)
+  Stat.create(name:"Nature", level:1, value: 0, user: self)
+  Stat.create(name:"Sound", level:1, value: 0, user: self)
+  Stat.create(name:"Reason", level:1, value: 0, user: self)
+  Stat.create(name:"Life", level:1, value: 0, user: self)
+  Stat.create(name:"People", level:1, value: 0, user: self)
+  Stat.create(name:"Body", level:1, value: 0, user: self)
+  Stat.create(name:"Word", level:1, value: 0, user: self)
+  Stat.create(name:"Self", level:1, value: 0, user: self)
+  Stat.create(name:"Picture", level:1, value: 0, user: self)
  end
 
 end
