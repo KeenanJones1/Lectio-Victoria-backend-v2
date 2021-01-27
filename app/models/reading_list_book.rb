@@ -21,15 +21,26 @@ class ReadingListBook < ApplicationRecord
      "People"
     elsif lower_desc.include? "phy"
      "Reason"
+    elsif lower_desc.include? "juvenile"
+     "Life"
+    elsif lower_desc.include? "comic"
+     "Picture"
+    elsif lower_desc.include? "adventure"
+     "Life"
+    elsif lower_desc.include? "humor"
+     "People"
     else
      byebug
-     "Default"
+     "Word"
     end
    end
 
-   def complete
+   def complete(user, book)
     # this method creates a book from the external api
-    @base = self.pages * 0.25
+    @base = book.pages * 0.25
+    self.type = "ReadBook"
+    stat = user.stats.find_by(name: self.genre)
+
     byebug
    end
   

@@ -44,15 +44,6 @@ ActiveRecord::Schema.define(version: 2021_01_26_192414) do
     t.string "book_cover"
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.decimal "weight"
-    t.integer "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_categories_on_book_id"
-  end
-
   create_table "reading_list_books", force: :cascade do |t|
     t.integer "reading_list_id", null: false
     t.integer "book_id", null: false
@@ -93,7 +84,6 @@ ActiveRecord::Schema.define(version: 2021_01_26_192414) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "categories", "books"
   add_foreign_key "reading_list_books", "books"
   add_foreign_key "reading_list_books", "reading_lists"
   add_foreign_key "reading_lists", "users"

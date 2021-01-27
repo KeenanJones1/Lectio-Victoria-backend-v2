@@ -6,7 +6,6 @@ class BookController < ApplicationController
 
   def create
     @author = params['book']['authors'].map { |i| i.to_s }.join(",")
-
   @title = params['book']['title']
   @published_year = params['book']['publishedDate']
   @description = params['book']['description']
@@ -16,29 +15,36 @@ class BookController < ApplicationController
 
 
 
-  
-  
+  user = User.find(readingList.user_id)
   readingList = ReadingList.find(params["list_id"])
-  
   rlb = ReadingListBook.create(reading_list: readingList, book: book)
 
-  if params['book']['categories']
-    genre = rlb.find_genre(params['book']['categories'][0])
-    rlb.genre = genre
-  else
-    genre = rlb.find_genre(book.description)
-    rlb.genre = genre
-    rlb.save
+  if user 
+    if params['book']['categories']
+      genre = rlb.find_genre(params['book']['categories'][0])
+      rlb.genre = genre
+      rlb.save
+    else
+      genre = rlb.find_genre(book.description)
+      rlb.genre = genre
+      rlb.save
+    end
   end
 
-  
-  book.process()
-  user = User.find(readingList.user_id)
   render json: UserSerializer.new(user).to_serialized_json
   end
 
   def show
     byebug
+  end
+  
+  def update
+    authorization_object = Authorization.new(request)
+    current_user = authorization_object.current_user
+    user = User.find(current_user)user
+    book = Book.find(params["id"])
+    rlb = ReadingListBook.find_by(book: book)
+    rlb.complete(user, book)
   end
 
   def destroy
