@@ -41,7 +41,7 @@ class BookController < ApplicationController
   def update
     authorization_object = Authorization.new(request)
     current_user = authorization_object.current_user
-    user = User.find(current_user)user
+    user = User.find(current_user)
     book = Book.find(params["id"])
     rlb = ReadingListBook.find_by(book: book)
     rlb.complete(user, book)
