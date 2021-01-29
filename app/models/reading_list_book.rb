@@ -36,27 +36,20 @@ class ReadingListBook < ApplicationRecord
    end
 
    def complete(user, book)
-    # this method creates a book from the external api
-
     @base = book.pages * 0.25
-
-    new_rl = user.reading_lists.select {|list| list.type == "DoneReading"}
-
-
-
+    new_rl = user.reading_lists.find{|list| list.type == "DoneReading"}
     rlb = ReadingListBook.create(reading_list: new_rl, book: book, genre: self.genre, type: "ReadBook")
-
     stat = user.stats.find_by(name: self.genre)
-    if stat.value + @base <= 100
+    if stat.value + @base <= stat.goal
       stat.value += @base
+      stat.save
     else
       stat.level++
-      new_value = (stat.value + @base) - 100
+      new_value = (stat.value + @base) - stat.goal
       stat.value = new_value
-      # Add goal back to stat migration 
-      # replace 100 with stat.goal
+      stat.goal = (stat.goal * 0.15) + stat.goal
+      stat.save
     end
-    byebug
     self.destroy
    end
   
