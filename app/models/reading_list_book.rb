@@ -17,7 +17,11 @@ class ReadingListBook < ApplicationRecord
      "Body"
     elsif lower_desc.include? "politic"
      "Reason"
+    elsif lower_desc.include? "logy"
+     "Reason"
     elsif lower_desc.include? "biograph"
+     "People"
+    elsif lower_desc.include? "authors"
      "People"
     elsif lower_desc.include? "phy"
      "Reason"
@@ -41,10 +45,12 @@ class ReadingListBook < ApplicationRecord
     rlb = ReadingListBook.create(reading_list: new_rl, book: book, genre: self.genre, type: "ReadBook")
     stat = user.stats.find_by(name: self.genre)
     if stat.value + @base <= stat.goal
+      byebug
       stat.value += @base
       stat.save
     else
-      stat.level++
+      byebug
+      stat.level += 1
       new_value = (stat.value + @base) - stat.goal
       stat.value = new_value
       stat.goal = (stat.goal * 0.15) + stat.goal

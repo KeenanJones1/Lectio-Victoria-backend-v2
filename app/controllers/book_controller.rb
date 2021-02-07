@@ -10,8 +10,14 @@ class BookController < ApplicationController
   @published_year = params['book']['publishedDate']
   @description = params['book']['description']
   @pages = params['book']['pageCount']
-  @book_cover = params['book']['imageLinks']['thumbnail']
+
+    if params['book']['imageLinks']
+    @book_cover = params['book']['imageLinks']['thumbnail']
+  else
+    @book_cover = nil
+  end
   book = Book.create(title: @title, published_year: @published_year,description: @description, pages: @pages, book_cover: @book_cover, author: @author)
+
   readingList = ReadingList.find(params["list_id"])
   user = User.find(readingList.user_id)
   rlb = ReadingListBook.create(reading_list: readingList, book: book)
@@ -54,7 +60,7 @@ class BookController < ApplicationController
     if user.id === reading_list.user_id
       reading_list_book.destroy
       book.destroy
-      render json: reading_list.as_json( :include => {:reading_list_books => {:include => {:book => {:only => [:title, :author, :published_year, :genre, :description, :pages, :id, :book_cover]}}}})
+      render json: UserSerializer.new(user).to_serialized_json
     else
       render json: {message: "Invalid User"}
     end
