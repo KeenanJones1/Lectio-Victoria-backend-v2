@@ -1,9 +1,15 @@
 class ReadingListController < ApplicationController
   def index
     readinglists = ReadingList.all
-    render json: readinglists.as_json(
-      only: [:id, :name, :type]
-    )
+    byebug
+    authorization_object = Authorization.new(request)
+    current_user = authorization_object.current_user
+    user = User.find(current_user)
+    if current_user === user.id 
+    render json: UserSerializer.new(user).reading_list_serialized_json
+    else
+      byebug
+    end
   end
 
   def create
