@@ -1,7 +1,6 @@
 class ReadingListController < ApplicationController
   def index
     readinglists = ReadingList.all
-    byebug
     authorization_object = Authorization.new(request)
     current_user = authorization_object.current_user
     user = User.find(current_user)
