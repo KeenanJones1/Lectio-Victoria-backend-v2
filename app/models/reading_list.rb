@@ -22,4 +22,13 @@ class ReadingList < ApplicationRecord
     end
   end
 
+  def dedupe
+    rlbs = self.reading_list_books
+    grouped = rlbs.group_by{|rlb| [rlb.book.title, rlb.book.author, rlb.book.published_year, rlb.book.pages]}
+    grouped.values.each do |duplicates| 
+      first_one = duplicates.shift
+      duplicates.each{|double| double.destroy}
+    end
+  end
+
 end

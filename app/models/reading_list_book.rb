@@ -2,6 +2,8 @@ class ReadingListBook < ApplicationRecord
   belongs_to :reading_list
   belongs_to :book
   validate :limit_currently_reading_list, on: :create
+  before_create :unique_check
+  
 
   def limit_currently_reading_list
    user = ReadingList.find(self.reading_list_id).user
@@ -45,11 +47,9 @@ class ReadingListBook < ApplicationRecord
     rlb = ReadingListBook.create(reading_list: new_rl, book: book, genre: self.genre, type: "ReadBook")
     stat = user.stats.find_by(name: self.genre)
     if stat.value + @base <= stat.goal
-      byebug
       stat.value += @base
       stat.save
     else
-      byebug
       stat.level += 1
       new_value = (stat.value + @base) - stat.goal
       stat.value = new_value
@@ -58,5 +58,13 @@ class ReadingListBook < ApplicationRecord
     end
     self.destroy
    end
+
+  def unique_check
+    byebug
+    user = self.reading_list.user
+    user_reading_list = user.reading_lists.select{|rl| rl.name === self.reading_list.name }
+    # Must find the reading_list_books to check if the book is already there if it is delete this books and return a message
+
+  end
   
 end

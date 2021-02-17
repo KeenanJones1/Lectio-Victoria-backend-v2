@@ -5,6 +5,7 @@ class ReadingListController < ApplicationController
     current_user = authorization_object.current_user
     user = User.find(current_user)
     if current_user === user.id 
+    user.reading_lists.map{|list| list.dedupe}
     render json: UserSerializer.new(user).reading_list_serialized_json
     else
       byebug

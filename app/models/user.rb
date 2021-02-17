@@ -29,4 +29,5 @@ class User < ApplicationRecord
   Stat.create(name:"Picture", level:1, value: 0, user: self, goal: 100)
  end
 
+
 end
