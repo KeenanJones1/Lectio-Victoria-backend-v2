@@ -5,35 +5,43 @@ class BookController < ApplicationController
   end
 
   def create
+# Clean this shit up!!!!
+# Book variables
   @author = params['book']['authors'].map { |i| i.to_s }.join(",")
   @title = params['book']['title']
   @published_year = params['book']['publishedDate']
   @description = params['book']['description']
   @pages = params['book']['pageCount']
+# Find reading Lists
+  readingList = ReadingList.find(params["list_id"])
+  rlbs = readingList.reading_list_books
 
-    if params['book']['imageLinks']
+  if params['book']['imageLinks']
     @book_cover = params['book']['imageLinks']['thumbnail']
   else
     @book_cover = nil
   end
-  book = Book.create(title: @title, published_year: @published_year,description: @description, pages: @pages, book_cover: @book_cover, author: @author)
 
-  readingList = ReadingList.find(params["list_id"])
-  user = User.find(readingList.user_id)
-  rlb = ReadingListBook.create(reading_list: readingList, book: book)
 
-  if user 
-    if params['book']['categories']
-      genre = rlb.find_genre(params['book']['categories'][0])
-      rlb.genre = genre
-      rlb.save
-    else
-      genre = rlb.find_genre(book.description)
-      rlb.genre = genre
-      rlb.save
+  if rlbs.select{|x| x.book.title === @title && x.book.author === @author}.size > 0
+    render json: {message: "Book already in List"}
+  else
+    book = Book.create(title: @title, published_year: @published_year,description: @description, pages: @pages, book_cover: @book_cover, author: @author)
+    rlb = ReadingListBook.create(reading_list: readingList, book: book)
+    user = User.find(readingList.user_id)
+    if user 
+      if params['book']['categories']
+        genre = rlb.find_genre(params['book']['categories'][0])
+        rlb.genre = genre
+        rlb.save
+      else
+        genre = rlb.find_genre(book.description)
+        rlb.genre = genre
+        rlb.save
+      end
     end
-  end
-  render json: UserSerializer.new(user).to_serialized_json
+    render json: UserSerializer.new(user).to_serialized_json
+   end
   end
 
   def show

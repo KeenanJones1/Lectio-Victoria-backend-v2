@@ -1,6 +1,6 @@
 class ReadingListBook < ApplicationRecord
   belongs_to :reading_list
-  belongs_to :book
+  belongs_to :book, dependent: :destroy
   validate :limit_currently_reading_list, on: :create
   before_create :unique_check
   
@@ -36,7 +36,6 @@ class ReadingListBook < ApplicationRecord
     elsif lower_desc.include? "humor"
      "People"
     else
-     byebug
      "Word"
     end
    end
@@ -60,11 +59,15 @@ class ReadingListBook < ApplicationRecord
    end
 
   def unique_check
-    byebug
     user = self.reading_list.user
-    user_reading_list = user.reading_lists.select{|rl| rl.name === self.reading_list.name }
-    # Must find the reading_list_books to check if the book is already there if it is delete this books and return a message
-
+    user_reading_list = user.reading_lists.find{|rl| rl.name === self.reading_list.name}
+    rlbs = user_reading_list.reading_list_books
+    if rlbs.select{|x| x.book.title === self.book.title}.size > 0
+      self.errors.add(:base, 'This book is already in the selected list')
+      book = Book.find(self.book.id)
+      self.destroy
+      byebug
+    end
   end
   
 end
